@@ -6,5 +6,6 @@ export default {
     "authHdr" : "XXXX"
 
   },
+  emailConfig: {},
   ajaxCallsInProgress: 0
 };

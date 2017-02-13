@@ -6,7 +6,6 @@ const ConfigurationsList = ({configurations}) => {
     <table className="table">
       <thead>
       <tr>
-        <th>&nbsp;</th>
         <th>Id</th>
         <th>Name</th>
 

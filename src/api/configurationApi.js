@@ -16,7 +16,7 @@ const services = [
     path: "config/application"
   }
 
-]
+];
 class ConfigurationApi{
   static getAllServices(){
     return new Promise((resolve,reject)=>{
