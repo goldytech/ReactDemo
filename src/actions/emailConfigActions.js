@@ -16,3 +16,19 @@ export function loadEmailConfiguration() {
     });
   };
 }
+export function updateEmailConfigSuccess(emailConfig) {
+  return {type: types.UPDATE_EMAILCONFIG_SUCCESS, emailConfig};
+}
+export function updateEmailConfig(updatedEmailConfig) {
+  debugger;
+  return function (dispatch) {
+    dispatch(beginAjaxCall());
+    return emailConfigApi.saveEmailConfig(updatedEmailConfig).then(updatedEmailConfig => {
+      dispatch(updateEmailConfigSuccess(updatedEmailConfig));
+
+    }).catch(error => {
+      dispatch(ajaxCallError(error));
+      throw(error);
+    });
+  }
+}

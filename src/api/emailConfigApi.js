@@ -19,6 +19,16 @@ class emailConfigApi {
       }, delay);
     });
   }
+
+  static saveEmailConfig(updatedEmailConfig) {
+    debugger;
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        debugger;
+        resolve(updatedEmailConfig);
+      }, delay);
+    });
+  }
 }
 
 export default emailConfigApi;

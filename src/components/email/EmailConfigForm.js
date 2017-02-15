@@ -3,19 +3,15 @@ import TextInput from '../common/TextInput';
 debugger;
 const EmailConfigForm = ({emailConfig, onSave, onChange, saving, errors}) => {
   return (
-    /* <div>
-     <h3>Test</h3>
-     <h1>{emailConfig.emailProvider}</h1>
-     </div>*/
 
     <form>
-      <TextInput name="emailProviderSettings.emailProvider" label="Email Provider" onChange={onChange}
+      <TextInput name="emailProvider" label="Email Provider" onChange={onChange}
                  value={emailConfig.emailProvider}/>
-      <TextInput name="emailProviderSettings.SendGrid.ApiKey" label="Send Grid Api Key" onChange={onChange}
+      <TextInput name="apiKey" label="Send Grid Api Key" onChange={onChange}
                  value={emailConfig.emailProviderSettings.SendGrid.ApiKey}/>
-      <TextInput name="emailProviderSettings.SendGrid.FromName" label="From Name" onChange={onChange}
+      <TextInput name="fromName" label="From Name" onChange={onChange}
                  value={emailConfig.emailProviderSettings.SendGrid.FromName}/>
-      <TextInput name="emailProviderSettings.SendGrid.FromAddress" label="From Address" onChange={onChange}
+      <TextInput name="fromAddress" label="From Address" onChange={onChange}
                  value={emailConfig.emailProviderSettings.SendGrid.FromAddress}/>
       <input
         type="submit"

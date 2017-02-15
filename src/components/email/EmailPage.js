@@ -3,14 +3,11 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as emailConfigActions from '../../actions/emailConfigActions';
 import EmailConfigForm from './EmailConfigForm';
-
+import toastr from 'toastr';
 
 class EmailPage extends React.Component {
   constructor(props, context) {
     super(props, context);
-    debugger;
-
-
     this.state = {
       emailConfig: Object.assign({}, props.emailConfig),
       errors: {},
@@ -24,23 +21,32 @@ class EmailPage extends React.Component {
 
   componentDidMount() {
     // raise the action to load email configuration
-    debugger;
+
     this.props.actions.loadEmailConfiguration();
 
 
   }
 
   componentWillReceiveProps(nextProps) {
-    debugger;
     if (this.props.emailConfig != nextProps.emailConfig) {
       this.setState({emailConfig: Object.assign({}, nextProps.emailConfig)});
     }
   }
 
   updateemailConfigState(event) {
+    debugger;
     const field = event.target.name;
     let emailConfig = this.state.emailConfig;
-    emailConfig[field] = event.target.value;
+    switch (field) {
+      case "emailProvider":
+        emailConfig.emailProvider = event.target.value;
+        break;
+      case "apiKey":
+        emailConfig.emailProviderSettings.SendGrid.ApiKey = event.target.value;
+        break;
+      default:
+        emailConfig = this.state.emailConfig; // restore original value
+    }
     return this.setState({emailConfig: emailConfig});
   }
 
@@ -59,8 +65,22 @@ class EmailPage extends React.Component {
 
 
   saveEmailConfig(event) {
+    debugger;
     event.preventDefault();
+    this.setState({saving: true});
+    this.props.actions.updateEmailConfig(this.state.emailConfig)
+      .then(() => this.redirect())
+      .catch(error => {
+        toastr.error(error);
+        this.setState({saving: false});
+      });
 
+  }
+
+  redirect() {
+    this.setState({saving: false});
+    toastr.success('Email Configuration saved');
+    this.context.router.push('/configuration');
   }
 
   render() {
@@ -85,7 +105,6 @@ EmailPage.propTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
-  debugger;
   let initialemailConfig =
     {
       "emailProviderSettings": {
@@ -108,7 +127,6 @@ function mapStateToProps(state, ownProps) {
 }
 
 function mapDispatchToProps(dispatch) {
-  debugger;
   return {
 
     actions: bindActionCreators(emailConfigActions, dispatch)
