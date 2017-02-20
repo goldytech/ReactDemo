@@ -8,11 +8,11 @@ const EmailConfigForm = ({emailConfig, onSave, onChange, saving, errors}) => {
       <TextInput name="emailProvider" label="Email Provider" onChange={onChange}
                  value={emailConfig.emailProvider}/>
       <TextInput name="apiKey" label="Send Grid Api Key" onChange={onChange}
-                 value={emailConfig.emailProviderSettings.SendGrid.ApiKey}/>
+                 value={emailConfig.apiKey}/>
       <TextInput name="fromName" label="From Name" onChange={onChange}
-                 value={emailConfig.emailProviderSettings.SendGrid.FromName}/>
+                 value={emailConfig.fromName}/>
       <TextInput name="fromAddress" label="From Address" onChange={onChange}
-                 value={emailConfig.emailProviderSettings.SendGrid.FromAddress}/>
+                 value={emailConfig.fromAddress}/>
       <input
         type="submit"
         disabled={saving}

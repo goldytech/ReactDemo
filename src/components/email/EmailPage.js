@@ -24,7 +24,6 @@ class EmailPage extends React.Component {
 
     this.props.actions.loadEmailConfiguration();
 
-
   }
 
   componentWillReceiveProps(nextProps) {
@@ -34,19 +33,9 @@ class EmailPage extends React.Component {
   }
 
   updateemailConfigState(event) {
-    debugger;
     const field = event.target.name;
     let emailConfig = this.state.emailConfig;
-    switch (field) {
-      case "emailProvider":
-        emailConfig.emailProvider = event.target.value;
-        break;
-      case "apiKey":
-        emailConfig.emailProviderSettings.SendGrid.ApiKey = event.target.value;
-        break;
-      default:
-        emailConfig = this.state.emailConfig; // restore original value
-    }
+    emailConfig[field] = event.target.value;
     return this.setState({emailConfig: emailConfig});
   }
 
@@ -65,7 +54,6 @@ class EmailPage extends React.Component {
 
 
   saveEmailConfig(event) {
-    debugger;
     event.preventDefault();
     this.setState({saving: true});
     this.props.actions.updateEmailConfig(this.state.emailConfig)
@@ -84,8 +72,6 @@ class EmailPage extends React.Component {
   }
 
   render() {
-    debugger;
-    const {emailConfig} = this.props;
 
     return (
       <div>
@@ -104,18 +90,20 @@ EmailPage.propTypes = {
   actions: PropTypes.object.isRequired
 };
 
+EmailPage.contextTypes = {
+  router: PropTypes.object
+};
+
 function mapStateToProps(state, ownProps) {
   let initialemailConfig =
+
     {
-      "emailProviderSettings": {
-        "SendGrid": {
-          "ApiKey": "",
-          "FromName": "",
-          "FromAddress": ""
-        }
-      },
-      "emailProvider": ""
+      "emailProvider": "",
+      "apiKey": "",
+      "fromName": "",
+      "fromAddress": ""
     };
+  debugger;
   if (state.emailConfig.emailProvider) {
     initialemailConfig = state.emailConfig;
   }
